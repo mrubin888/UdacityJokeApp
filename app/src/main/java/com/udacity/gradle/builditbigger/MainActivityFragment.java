@@ -1,27 +1,46 @@
 package com.udacity.gradle.builditbigger;
 
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.Toast;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 
+import com.example.Joker;
+import com.tutorial.matt.jokedisplay.JokeDisplayActivity;
 
 /**
  * A placeholder fragment containing a simple view.
  */
 public class MainActivityFragment extends Fragment {
 
+    private static final String TAG = MainActivityFragment.class.getSimpleName();
+
+    private Joker joker;
+
     public MainActivityFragment() {
+        joker = new Joker();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_main, container, false);
+
+        Button jokeButton = (Button) root.findViewById(R.id.joke_button);
+        jokeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tellJoke(v);
+            }
+        });
 
         AdView mAdView = (AdView) root.findViewById(R.id.adView);
         // Create an ad request. Check logcat output for the hashed device ID to
@@ -32,5 +51,17 @@ public class MainActivityFragment extends Fragment {
                 .build();
         mAdView.loadAd(adRequest);
         return root;
+    }
+
+    public void tellJoke(View view) {
+        String joke = joker.getJoke();
+
+        Log.d(TAG, "tellJoke: 0");
+        Intent intent = new Intent(getActivity(), JokeDisplayActivity.class);
+        Log.d(TAG, "tellJoke: ");
+        Log.d(TAG, "tellJoke: " + intent.toString());
+        //intent.putExtra("JOKE", joke);
+        startActivity(intent);
+        //Toast.makeText(getActivity(), joke, Toast.LENGTH_SHORT).show();
     }
 }
