@@ -28,4 +28,5 @@ dependencies {
 
     compile project(':jokeslib')
     compile project(':jokedisplay')
+    compile project(path: ':backend', configuration: 'android-endpoints')
 }

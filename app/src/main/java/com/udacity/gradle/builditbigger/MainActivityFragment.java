@@ -54,11 +54,15 @@ public class MainActivityFragment extends Fragment {
     }
 
     public void tellJoke(View view) {
-        String joke = joker.getJoke();
-
-        Intent intent = new Intent(getActivity(), JokeDisplayActivity.class);
-        intent.putExtra("JOKE", joke);
-        startActivity(intent);
-        //Toast.makeText(getActivity(), joke, Toast.LENGTH_SHORT).show();
+        new FetchJokeTask(onTaskCompleteListener).execute();
     }
+
+    private OnTaskCompleteListener onTaskCompleteListener = new OnTaskCompleteListener() {
+        @Override
+        public void onTaskComplete(String result) {
+            Intent intent = new Intent(getActivity(), JokeDisplayActivity.class);
+            intent.putExtra("JOKE", result);
+            startActivity(intent);
+        }
+    };
 }
