@@ -56,11 +56,8 @@ public class MainActivityFragment extends Fragment {
     public void tellJoke(View view) {
         String joke = joker.getJoke();
 
-        Log.d(TAG, "tellJoke: 0");
         Intent intent = new Intent(getActivity(), JokeDisplayActivity.class);
-        Log.d(TAG, "tellJoke: ");
-        Log.d(TAG, "tellJoke: " + intent.toString());
-        //intent.putExtra("JOKE", joke);
+        intent.putExtra("JOKE", joke);
         startActivity(intent);
         //Toast.makeText(getActivity(), joke, Toast.LENGTH_SHORT).show();
     }
